@@ -9,17 +9,11 @@ import {
 } from 'typeorm';
 import { SERIALIZE_GROUP } from '../enum/serialization-group.enum';
 import { ClassTransformOptions, Expose } from 'class-transformer';
-import { UserEntity } from './users.entity';
+import { LineUserEntity } from './users.entity';
 import { ProductEntity } from './Products.entity';
 
 @Entity(DB_TABLE_NAME.ORDER)
 export class OrderEntity extends ExtendedEntity {
-  @Column({ name: 'is_active', default: true })
-  @Expose({
-    groups: [SERIALIZE_GROUP.GROUP_EVENT],
-  })
-  isActive: boolean;
-
   @PrimaryGeneratedColumn()
   @Expose({
     groups: [SERIALIZE_GROUP.GROUP_EVENT],
@@ -34,7 +28,7 @@ export class OrderEntity extends ExtendedEntity {
 
   @Column({name: 'product_id', nullable: true})
   product_id: number;
-  @ManyToOne(() => UserEntity, { nullable: true })
+  @ManyToOne(() => ProductEntity, { nullable: true })
   @Expose({
       groups: [SERIALIZE_GROUP.GROUP_PRODUCT],
   })

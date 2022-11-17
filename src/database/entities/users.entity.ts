@@ -1,21 +1,16 @@
-import { DB_TABLE_NAME } from '../enum/database.enum';
+import { DB_TABLE_NAME, ENUMTypeColumnEntity } from '../enum/database.enum';
 import { ExtendedEntity } from './extended_entity'; 
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { SERIALIZE_GROUP } from '../enum/serialization-group.enum';
 import { ClassTransformOptions, Expose } from 'class-transformer';
 
-@Entity(DB_TABLE_NAME.USER)
-export class UserEntity extends ExtendedEntity {
-  @Column({ name: 'is_active', default: true })
-  @Expose({
-    groups: [SERIALIZE_GROUP.GROUP_USER],
-  })
-  isActive: boolean;
-
+@Entity(DB_TABLE_NAME.LINE_USER)
+export class LineUserEntity extends ExtendedEntity {
   @PrimaryGeneratedColumn()
   @Expose({
     groups: [SERIALIZE_GROUP.GROUP_USER],
@@ -46,9 +41,22 @@ export class UserEntity extends ExtendedEntity {
   })
   address: string;
 
-  @Column({ length: 50 })
+  @Column({ length: 50, nullable: true})
   @Expose({
     groups: [SERIALIZE_GROUP.GROUP_USER],
   })
   line_id: string;
+
+  @Column({ length: 20, nullable: true})
+  @Expose({
+    groups: [SERIALIZE_GROUP.GROUP_USER],
+  })
+  line_user_type: string;
+
+  @Column({ nullable: true })
+  @Expose({
+    groups: [SERIALIZE_GROUP.GROUP_USER, SERIALIZE_GROUP.GROUP_USER],
+  })
+  last_active: Date;
+
 }

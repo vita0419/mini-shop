@@ -4,15 +4,12 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  JoinColumn,
-  ManyToOne,
 } from 'typeorm';
 import { SERIALIZE_GROUP } from '../enum/serialization-group.enum';
 import { ClassTransformOptions, Expose } from 'class-transformer';
-import { CategoryEntity } from './category.entity';
 
-@Entity(DB_TABLE_NAME.PRODUCT)
-export class ProductEntity extends ExtendedEntity {
+@Entity(DB_TABLE_NAME.CATEGORY)
+export class CategoryEntity extends ExtendedEntity {
   @PrimaryGeneratedColumn()
   @Expose({
     groups: [SERIALIZE_GROUP.GROUP_PRODUCT],
@@ -30,26 +27,5 @@ export class ProductEntity extends ExtendedEntity {
     groups: [SERIALIZE_GROUP.GROUP_PRODUCT],
   })
   description: string;
-
-  @Column({ name: 'img_path', length: 255, nullable: true})
-  @Expose({
-    groups: [SERIALIZE_GROUP.GROUP_PRODUCT],
-  })
-  img_path: string;
-
-  @Column({ name: 'price' ,nullable: true})
-  @Expose({
-    groups: [SERIALIZE_GROUP.GROUP_PRODUCT],
-  })
-  price: number;
-
-  @Column({name: 'category_id', nullable: true})
-  category_id: number;
-  @ManyToOne(() => CategoryEntity, { nullable: true })
-  @Expose({
-      groups: [SERIALIZE_GROUP.GROUP_PRODUCT],
-  })
-  @JoinColumn({ name: 'category_id' })
-  category: CategoryEntity;
 
 }

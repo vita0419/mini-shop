@@ -5,6 +5,9 @@ export enum DB_TABLE_NAME {
   ORDER = 'orders',
   ADMIN = 'admin',
   MIGRATIONS = 'migrations',
+  CATEGORY = 'category',
+  BASKET = 'basket',
+  LINE_USER = 'line_user'
 }
 
 export enum ENUMBaseEntity {
